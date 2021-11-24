@@ -1,19 +1,19 @@
 pipeline {
     agent any
     tools {
-        maven 'MAVEN'
+        maven 'Maven'
     }
 
     stages {
 
         stage('Build Maven') {
             steps{
-                 git branch: 'main', credentialsId: 'devopshint', url: 'https://github.com/devopshint/jenkins-nexus'
+                 git branch: 'master', credentialsId: 'devopshint', url: 'https://github.com/The-DevOps-2021/Artifactorty_push'
                  sh "mvn -Dmaven.test.failure.ignore=true clean package"
                 
             }
         }   
-   stage("Publish to Nexus Repository Manager") {
+   stage("Publish to Artifactory") {
 
             steps {
 
@@ -33,20 +33,20 @@ pipeline {
 
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
 
-                        nexusArtifactUploader(
-                            nexusVersion: 'nexus3',
+                        rtUpload(
+                            serverId: 'Artifactory',
                             
                             protocol: 'http',
 
-                            nexusUrl: '52.66.46.76:8081/',
+                            nexusUrl: 'http://3.108.236.103:8082/',
 
                             groupId: 'pom.com.mycompany.app',
 
                             version: 'pom.1.0-SNAPSHOT',
 
-                            repository: 'repository/maven-central-repository',
+                            repository: 'maven-central-repository',
 
-                            credentialsId: 'NEXUS_CRED',
+                            credentialsId: 'Artifactory_token',
 
                             artifacts: [
 
