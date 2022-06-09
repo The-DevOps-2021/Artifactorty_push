@@ -13,7 +13,7 @@ pipeline {
                 
             }
         }   
-   stage("Publish to Artifactory") {
+   //stage("Publish to Artifactory") {
 
             steps {
 
@@ -72,7 +72,7 @@ pipeline {
 
                     } else {
 
-                        error "*** File: ${artifactPath}, could not be found";
+                        //error "*** File: ${artifactPath}, could not be found";
 
                     }
 
